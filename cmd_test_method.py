@@ -25,8 +25,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.naive_bayes import MultinomialNB
 
+    
+# creates a new Multinomial model 
+NB= MultinomialNB()
+
+xtrain, xtest, ytrain, ytest = train_test_split(tfidf_result, data['Topic'], test_size= 0.2)
+NB.fit(xtrain, ytrain)
+
+ypred1 = NB.predict(xtrain)
+ypred = NB.predict(xtest)
+
+ytrain=ytrain[0:1739]
+ytest=ytest[0:1739]
+ypred1 = ypred1[0:1739]
+ypred = ypred[0:1739]
  
-def online_test(vectorizer, question, right_label):
+def online_test(model, vectorizer, question, right_label, error_analysis=False):
     # convert the question to a vector, using an already existing vector.
     # There is a subtle issue here - if question includes a word that
     # isn't already in the dataset, the transformer/vectorizor won't handle
@@ -39,29 +53,19 @@ def online_test(vectorizer, question, right_label):
     question_as_sparse_matrix = vectorizer.transform([question])
     # convert to vector, this is inefficient but OK
     question_as_vector = np.array(question_as_sparse_matrix.todense())
-    
-    # creates a new model 
-    NB= MultinomialNB()
 
-    xtrain, xtest, ytrain, ytest = train_test_split(tfidf_result, data['Topic'], test_size= 0.2)
-    NB.fit(xtrain, ytrain)
-
-    ypred1 = NB.predict(xtrain)
-    ypred = NB.predict(xtest)
-
-    ytrain=ytrain[0:1739]
-    ytest=ytest[0:1739]
-    ypred1 = ypred1[0:1739]
-    ypred = ypred[0:1739]
-
-    # predict the label
-    prediction = NB.predict(question_as_vector)
+    # predicts the label
+    prediction = model.predict(question_as_vector)
     results = {'Comment': question, 'Topic': right_label, 'Guess' : prediction[0]}
     print(results) 
     # check if the prediction is correct
     if prediction[0] == right_label:
         return "Correct"
     else:
+        if error_analysis:
+            global data
+            data.loc[len(data)] = {'Comment': question, 'Topic': right_label}
+            data.to_csv(data)
         return "Incorrect"
     
 import sys # allows for command line arguments to be used as arguments for script.
@@ -70,5 +74,5 @@ import sys # allows for command line arguments to be used as arguments for scrip
 question = sys.argv[1] 
 # the 1th argument ("Physics", "Chemistry", or "Biology") is the correct label to be checked with 
 right_Label = sys.argv[2] 
-
-print(online_test(vectorizer, question, right_Label))
+error_analysis = sys.argv[3]
+print(online_test(vectorizer, question, right_Label, error_analysis == "True"))
