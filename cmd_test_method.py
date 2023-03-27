@@ -75,4 +75,4 @@ question = sys.argv[1]
 # the 1th argument ("Physics", "Chemistry", or "Biology") is the correct label to be checked with 
 right_Label = sys.argv[2] 
 error_analysis = sys.argv[3]
-print(online_test(vectorizer, question, right_Label, error_analysis == "True"))
+print(online_test(NB, vectorizer, question, right_Label, error_analysis == "True"))
