@@ -2,6 +2,10 @@ import pandas as pd
 import nltk
 import numpy as np
 
+# rids the console of warnings
+import warnings
+warnings.filterwarnings("ignore")
+
 data = pd.read_csv('train.csv')
 data.drop('Id',axis=1 , inplace=True)
 
@@ -74,5 +78,6 @@ import sys # allows for command line arguments to be used as arguments for scrip
 question = sys.argv[1] 
 # the 1th argument ("Physics", "Chemistry", or "Biology") is the correct label to be checked with 
 right_Label = sys.argv[2] 
+# the 2th argument ("True" or "False") is whether or not to add the question to the dataset if it is incorrect
 error_analysis = sys.argv[3]
 print(online_test(NB, vectorizer, question, right_Label, error_analysis == "True"))
