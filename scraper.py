@@ -1,36 +1,39 @@
 import pandas as pd
 import PyPDF2
 
-with open('Biology Textbook.pdf', 'rb') as file:
+with open('Chemistry Textbook.pdf', 'rb') as file:
     
     pdf_reader = PyPDF2.PdfReader(file)
 
     chapter_ranges = {
-        'Chapter 1': [25, 26],
-        'Chapter 2': [54, 54],
-        'Chapter 3': [88, 89],
-        'Chapter 4': [115,116],
-        'Chapter 5': [133,134],
-        'Chapter 6': [151,152],
-        'Chapter 7': [171,172],
-        'Chapter 8': [196,197],
-        'Chapter 9': [222,223],
-        'Chapter 10': [247,247],
-        'Chapter 11': [272,273],
-        'Chapter 12': [289,290],
-        'Chapter 13': [322,323],
-        'Chapter 14': [353,354],
-        'Chapter 15': [400,401],
-        'Chapter 16': [446,448],
-        'Chapter 17': [474,475],
-        'Chapter 18': [497,498],
-        'Chapter 19': [527,528],
-        'Chapter 20': [565,566],
-        'Chapter 21': [591,592],
+        'Chapter 1': [35, 40],
+        'Chapter 2': [75, 81],
+        'Chapter 3': [111, 119],
+        'Chapter 4': [154,161],
+        'Chapter 5': [202,211],
+        'Chapter 6': [248,253],
+        'Chapter 7': [290,298],
+        'Chapter 8': [329,356],
+        'Chapter 9': [384,393],
+        'Chapter 10': [424,433],
+        'Chapter 11': [463,471],
+        'Chapter 12': [514,523],
+        'Chapter 13': [558,566],
+        'Chapter 14': [609,621],
+        'Chapter 15': [661,663],
+        'Chapter 16': [708,715],
+        'Chapter 17': [758,763],
+        'Chapter 18': [803,805],
+        'Chapter 19': [838,847],
+        'Chapter 20': [898,899],
+        'Chapter 21': [935,941],
+        'Chapter 22': [979,984],
+        'Chapter 23': [1022,1028],
+        'Chapter 24': [1072,1078]
     }
 
     questions = []
-    page_advancement = 8
+    page_advancement = 40
 
     for chapter_title, page_range in chapter_ranges.items():
         
@@ -48,7 +51,7 @@ with open('Biology Textbook.pdf', 'rb') as file:
             
                 question_parts = question_text.split(maxsplit=1)
                 question_number = int(question_text.strip()[0])
-                question_text = question_parts[0] + " " + question_parts[1].strip()
+                question_text =  question_parts[1].strip()
                 i += 1
                 question = {
                     'Chapter Number': chapter_title.split()[1],
@@ -60,5 +63,5 @@ with open('Biology Textbook.pdf', 'rb') as file:
 
     df = pd.DataFrame(questions)
 
-    df.to_csv('bio.csv', index=False)
+    df.to_csv('chem.csv', index=False)
 
