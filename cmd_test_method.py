@@ -1,21 +1,32 @@
 import pandas as pd 
-import nltk
+from nltk.corpus import wordnet as wn
+from nltk.corpus import genesis
+genesis_ic = wn.ic(genesis, False, 0.0)
+
 import numpy as np
+import pandas as pd
+import warnings 
+from sklearn.neighbors import KNeighborsClassifier as KNC
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
 # rids the console of warnings
 import warnings
 warnings.filterwarnings("ignore")
 
+# reads in the data
 data = pd.read_csv('train.csv')
 data.drop('Id',axis=1 , inplace=True)
 
 CommentsToBeTokenized = data['Comment'] 
 tokens = CommentsToBeTokenized[0].split()
 
+# tokenizes the comments
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer()
 bow = cv.fit_transform(CommentsToBeTokenized)
 
+# creates a tf-idf matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf = TfidfVectorizer()
 tfidf_result=tfidf.fit_transform(CommentsToBeTokenized).toarray()
@@ -28,7 +39,6 @@ tfidf_result = pd.DataFrame(tfidf_result, columns=features)
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.naive_bayes import MultinomialNB
-
     
 # creates a new Multinomial model 
 NB= MultinomialNB()
@@ -43,6 +53,8 @@ ytrain=ytrain[0:1739]
 ytest=ytest[0:1739]
 ypred1 = ypred1[0:1739]
 ypred = ypred[0:1739]
+
+
  
 def online_test(model, vectorizer, question, right_label, error_analysis=False):
     # convert the question to a vector, using an already existing vector.
@@ -59,7 +71,10 @@ def online_test(model, vectorizer, question, right_label, error_analysis=False):
     question_as_vector = np.array(question_as_sparse_matrix.todense())
 
     # predicts the label
-    prediction = model.predict(question_as_vector)
+    if model == "KNN":
+        prediction = KNC.predict(question_as_vector)
+    else: 
+        prediction = model.predict(question_as_vector)
     results = {'Comment': question, 'Topic': right_label, 'Guess' : prediction[0]}
     print(results) 
     # check if the prediction is correct
