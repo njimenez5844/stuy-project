@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import online_test_method
 
-app = Flask(__name__, template_folder='C:\Users\Richie\Documents\stuy-project\HTML.html')
+app = Flask(__name__, template_folder= '.')
 messages = []
 
 # input machine learning algorithm here 
