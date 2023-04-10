@@ -56,7 +56,7 @@ ypred = ypred[0:1739]
 
 
  
-def online_test(model, vectorizer, question, right_label, error_analysis=False):
+def cmd_test(model, vectorizer, question, right_label, error_analysis=False):
     # convert the question to a vector, using an already existing vector.
     # There is a subtle issue here - if question includes a word that
     # isn't already in the dataset, the transformer/vectorizor won't handle
@@ -86,7 +86,17 @@ def online_test(model, vectorizer, question, right_label, error_analysis=False):
             data.loc[len(data)] = {'Comment': question, 'Topic': right_label}
             data.to_csv(data)
         return "Incorrect"
+
+# This is a function that can be used to test flask input
+def online_test(question):
+    question_as_sparse_matrix = vectorizer.transform([question])
+    question_as_vector = np.array(question_as_sparse_matrix.todense())
+    prediction = NB.predict(question_as_vector)
+    return prediction[0]
+
+
     
+
 import sys # allows for command line arguments to be used as arguments for script.
 
 # the 0th argument (shoud be in ""s) is the question
@@ -95,4 +105,4 @@ question = sys.argv[1]
 right_Label = sys.argv[2] 
 # the 2th argument ("True" or "False") is whether or not to add the question to the dataset if it is incorrect
 error_analysis = sys.argv[3]
-print(online_test(NB, vectorizer, question, right_Label, error_analysis == "True"))
+print(cmd_test(NB, vectorizer, question, right_Label, error_analysis == "True"))
