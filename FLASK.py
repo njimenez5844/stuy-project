@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
-from cmd_test_method import online_test
+import online_test_method
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='C:\Users\Richie\Documents\stuy-project\HTML.html')
 messages = []
 
 # input machine learning algorithm here 
@@ -16,7 +16,7 @@ def send():
     message = request.form['message']
     messages.append(('user', message))
     # bot's response generated from our algorithm 
-    bot_response = online_test(message)
+    bot_response = online_test_method.online_test(message)
     messages.append(('bot', bot_response))
     return render_template('home.html', messages=messages)
 
