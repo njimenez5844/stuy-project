@@ -1,21 +1,112 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Chat</title>
-</head>
-<body>
-  <h1>Chat History</h1>
-  <ul>
-    {% for message in messages %}
-    <li>{{ message[0] }}: {{ message[1] }}</li>
-    {% endfor %}
-  </ul>
-  <form method="POST" action="/send">
-    <label for="message">Enter Message:</label>
-    <br>
-    <textarea id="message" name="message" rows="3"></textarea>
-    <br>
-    <button type="submit">Send</button>
-  </form>
-</body>
+  <head>
+    <style> 
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+    input {
+      caret-color: red;
+    }
+
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #ecf0f3;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      place-items: center;
+      font-family: poppins;
+    }
+
+    .container {
+      position: relative;
+      width: 350px;
+      height: 500px;
+      border-radius: 20px;
+      padding: 40px;
+      box-sizing: border-box;
+      background: #ecf0f3;
+      box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    }
+
+    .inputs {
+      text-align: left;
+      margin-top: 30px;
+    }
+
+    label, input, button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    label {
+      margin-bottom: 4px;
+    }
+
+    label:nth-of-type(2) {
+      margin-top: 12px;
+    }
+
+    input::placeholder {
+      color: gray;
+    }
+
+    button {
+      color: white;
+      margin-top: 20px;
+      background: #f196ce;
+      height: 40px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 900;
+      box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+      transition: 0.5s;
+    }
+
+    h1 {
+      font-size: 25px;
+      text-align: center;
+      top: 0;
+      left: 0;
+    }
+
+    a {
+      position: absolute;
+      font-size: 10px;
+      bottom: 4px;
+      text-decoration: none;
+      right: 4px;
+      color: rgb(55, 97, 233);
+      border-radius: 10px;
+      padding: 2px;
+    } 
+
+    </style>
+  <title>quad google</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Science Question Predictor!</h1>
+      <ul>
+        {% for message in messages %}
+        <li>{{ message[0] }}: {{ message[1] }}</li>
+        {% endfor %}
+      </ul>
+      <form method="POST" action="/send">
+        <label for="message">Enter Your Question:</label>
+        <br>
+        <textarea id="message" name="message" rows="3"></textarea>
+        <br>
+        <button type="submit">Submit</button>
+      </form>
+      <a href="https://github.com/njimenez5844/stuy-project"> Made By: Richie Xue, Jason Ng, Richard Yom, Elizer Cho</a>
+    </div>
+  </body>
 </html>
