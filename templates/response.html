@@ -23,8 +23,8 @@
 
     .container {
       position: relative;
-      width: 350px;
-      height: 500px;
+      width: 500px; 
+      /* height: 500px;  */
       border-radius: 20px;
       padding: 40px;
       box-sizing: border-box;
@@ -99,13 +99,6 @@
         <li>{{ message[0] }}: {{ message[1] }}</li>
         {% endfor %}
       </ul>
-      <form method="POST" action="/send">
-        <label for="message">Enter Your Question:</label>
-        <br>
-        <textarea id="message" name="message" rows="3"></textarea>
-        <br>
-        <button type="submit">Submit</button>
-      </form>
       <a href="https://github.com/njimenez5844/stuy-project"> Made By: Richie Xue, Jason Ng, Richard Yom, Elizer Cho</a>
     </div>
   </body>

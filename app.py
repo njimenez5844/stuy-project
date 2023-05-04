@@ -18,7 +18,7 @@ def send():
     # bot's response generated from our algorithm 
     bot_response = online_test_method.online_test(message)
     messages.append(('bot', bot_response))
-    return render_template('home.html', messages=messages)
+    return render_template('response.html', messages=messages)
 
 if __name__ == '__main__':
     app.run(debug=True)
