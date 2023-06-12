@@ -24,8 +24,8 @@
 
         .container {
         position: relative;
-        width: 500px; 
-        /* height: 500px;  */
+        /* width: 500px; */
+        /* height: 500px; */
         border-radius: 20px;
         padding: 40px;
         box-sizing: border-box;
@@ -35,7 +35,7 @@
                 
         table {
             border-collapse: collapse;
-            width: 80%;
+            width: 100%;
             max-width: 800px;
         }
         
@@ -46,7 +46,18 @@
         }
         
         th {
-            background-color: #f2f2f2;
+            background-color: #EDEDED;
+        }
+        
+        .page-bottom {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .page-bottom a {
+            margin: 0 10px;
         }
     </style>
 </head>
@@ -70,7 +81,9 @@
             {% endfor %}
         </tbody>
     </table>
-    <a style="text-align:left;" href="/">Homepage</a>
-    <a style="text-align:right;" href="https://github.com/njimenez5844/stuy-project"> About this Project</a>
+    <div class="page-bottom">
+        <a href="/">Homepage</a>
+        <a href="https://github.com/njimenez5844/stuy-project">About this Project</a>
+    </div>
 </body>
 </html>
