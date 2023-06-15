@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+        input {
+        caret-color: red;
+        }
+
+        body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #ecf0f3;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        place-items: center;
+        font-family: poppins;
+        }
+
+        .container {
+        position: relative;
+        width: 500px;
+        /* height: 500px; */
+        border-radius: 20px;
+        padding: 40px;
+        box-sizing: border-box;
+        background: #ecf0f3;
+        box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+        }
+        
+        h1 {
+        margin-bottom: 20px;
+        }
+
+        form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+
+        input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        }
+
+        .create-account {
+        margin-top: 10px;
+        }
+
+        .create-account a {
+        color: blue;
+        text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign In</h1>
+        <form action="/signin" method="POST">
+            {% if error %}
+            <p style="color: red;">Invalid username or password. Please try again.</p>
+            {% endif %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Sign In">
+        </form>
+        <p class="create-account">Don't have an account? <a href="/create">Create one</a></p>
+        <a style="text-align:right;" href="https://github.com/njimenez5844/stuy-project"> About this Project</a>
+    </div>
+</body>
+</html>
