@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import pandas as pd
 import warnings 
-from sklearn.neighbors import KNeighborsClassifier as KNC
 from sklearn.model_selection import train_test_split
 
 # rids the console of warnings
@@ -11,16 +10,11 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # reads in the data
-data = pd.read_csv('train.csv')
+data = pd.read_csv('data/allData.csv')
 data.drop('Id',axis=1 , inplace=True)
 
 CommentsToBeTokenized = data['Comment'] 
 tokens = CommentsToBeTokenized[0].split()
-
-# tokenizes the comments
-from sklearn.feature_extraction.text import CountVectorizer
-cv = CountVectorizer()
-bow = cv.fit_transform(CommentsToBeTokenized)
 
 # creates a tf-idf matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -51,7 +45,7 @@ ypred1 = ypred1[0:1739]
 ypred = ypred[0:1739]
 
 # This is a function that can be used to test flask input
-def online_test(question):
+def online(question):
     question_as_sparse_matrix = vectorizer.transform([question])
     question_as_vector = np.array(question_as_sparse_matrix.todense())
     prediction = NB.predict(question_as_vector)

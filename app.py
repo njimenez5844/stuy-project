@@ -74,7 +74,7 @@ def send():
     messages.append(('Question', message))
 
     # bot's response generated from our algorithm
-    bot_response = online_test_method.online_test(message)
+    bot_response = online_test_method.online(message)
     messages.append(('Label', bot_response))
 
     history_df = history_df.append({'Username': current_user.iloc[0], 'Question': message, 'Label': bot_response},
