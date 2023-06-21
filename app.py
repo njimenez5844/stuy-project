@@ -65,6 +65,30 @@ def history():
     form_history = history_df.to_dict('records')
     return render_template('history.html', form_history=form_history)
 
+@app.route('/ask', methods=['GET', 'POST'])
+def ask_problem():
+    if request.method == 'POST':
+        subject = request.form['subject']
+
+        prompt = f"Ask a high school {subject} word problem. Only include the problem. Don't show explanations. Don't show the answer. Do it in 2 sentences."
+        generated_question = online_test_method.bard(prompt)['content'].split('>')[1]
+        generated_question = generated_question.split('?')[0] + '?'
+       
+        global history_df
+        history_df = history_df.append({'Username': current_user.iloc[0], 'Question': generated_question, 'Label': subject},
+                                       ignore_index=True)
+        # Redirect to the response page with the generated prompt
+        return redirect(f'/response?question={generated_question}')
+
+    return render_template('ask.html')
+
+@app.route('/response')
+def show_response():
+    question = request.args.get('question', '')
+
+    # Render the response page with the prompt
+    return render_template('bard_response.html', question=question)
+
 @app.route('/send', methods=['POST'])
 def send():
     global history_df

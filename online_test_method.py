@@ -51,6 +51,14 @@ def online(question):
     prediction = NB.predict(question_as_vector)
     return prediction[0]
 
+from data.Bard import Chatbot
+
+token = "Xwgld1FDRy3tuhuKlphbp-EFFvUBADa7-hna_SOzGZuyrYOhITTAcoXu-tUZkLPbWmDbdw."
+chatbot = Chatbot(token)
+
+def bard(subject):
+    return chatbot.ask(subject)
+
 
 
 

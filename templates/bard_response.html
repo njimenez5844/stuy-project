@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ecf0f3;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            place-items: center;
+            font-family: poppins;
+        }
+
+        .container {
+            position: relative;
+            width: 350px;
+            height: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            background: #ecf0f3;
+            box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+        }
+
+        .message {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 900;
+        }
+
+        .question-label {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .question {
+            background: #f196ce;
+            color: white;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: left;
+            font-weight: bold;
+            box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">
+            <label class="question-label">Question:</label>
+            <div class="question">{{ question }}</div>
+        </div>
+        </br>
+        <a href="/home">Homepage</a>
+        </br>
+        <a href="/history">History</a>
+        </br>
+        <a href="https://github.com/njimenez5844/stuy-project">About this Project</a>
+    </div>
+
+</body>
+</html>
