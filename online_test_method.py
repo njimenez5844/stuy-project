@@ -57,7 +57,6 @@ def online_test(question):
     prediction = NB.predict(question_as_vector)
     return prediction[0]
 
-from os import environ
 from data.Bard import Chatbot
 
 token = "Xwgld1FDRy3tuhuKlphbp-EFFvUBADa7-hna_SOzGZuyrYOhITTAcoXu-tUZkLPbWmDbdw."

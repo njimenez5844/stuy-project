@@ -78,6 +78,28 @@
         a {
             color: black;
         }
+
+        label {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;    
+        }
+
+        select {
+            width: 100%;
+            height: 40px;
+            border-radius: 20px;
+            padding: 0 20px;
+            font-size: 16px;
+            box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+            transition: 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -86,13 +108,16 @@
         <form action="/ask" method="POST" class="inputs">
             <label for="subject">Select a Subject:</label>
             <select name="subject" id="subject">
-                <option value="biology">Biology</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="physics">Physics</option>
+                <option value="Biology">Biology</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Physics">Physics</option>
             </select>
-            <br><br>
             <button type="submit">Ask Problem</button>
         </form>
+        </br>
+        <a href="/home">Homepage</a>
+        </br>
+        <a href="https://github.com/njimenez5844/stuy-project">About this Project</a>
     </div>
 </body>
 </html>

@@ -70,9 +70,13 @@ def ask_problem():
     if request.method == 'POST':
         subject = request.form['subject']
 
-        prompt = f"Ask a high school {subject} word problem. Don't show anything else solutions or explanations."
-        generated_question = online_test_method.bard(prompt)
-
+        prompt = f"Ask a high school {subject} word problem. Only include the problem. Don't show explanations. Don't show the answer. Do it in 2 sentences."
+        generated_question = online_test_method.bard(prompt)['content'].split('>')[1]
+        generated_question = generated_question.split('?')[0] + '?'
+       
+        global history_df
+        history_df = history_df.append({'Username': current_user.iloc[0], 'Question': generated_question, 'Label': subject},
+                                       ignore_index=True)
         # Redirect to the response page with the generated prompt
         return redirect(f'/response?question={generated_question}')
 
