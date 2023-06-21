@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form History</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+
+        input {
+            caret-color: red;
+        }
+
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ecf0f3;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            place-items: center;
+            font-family: poppins;
+        }
+
+        .container {
+            position: relative;
+            /* width: 500px; */
+            /* height: 500px; */
+            border-radius: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            background: #ecf0f3;
+            box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #EDEDED;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Form History</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Question</th>
+                    <th>Label</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in form_history %}
+                <tr>
+                    <td>{{ row.Username }}</td>
+                    <td>{{ row.Question }}</td>
+                    <td>{{ row.Label }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/home">Homepage</a>
+        <a href="https://github.com/njimenez5844/stuy-project">About this Project</a>
+    </div>
+
+</body>
+</html>
