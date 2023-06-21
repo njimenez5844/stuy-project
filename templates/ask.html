@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ask Problem</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ecf0f3;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            place-items: center;
+            font-family: poppins;
+        }
+
+        .container {
+            position: relative;
+            width: 350px;
+            height: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            background: #ecf0f3;
+            box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+        }
+
+        .inputs {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        label,
+        input,
+        button {
+            display: block;
+            width: 100%;
+            padding: 0;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        label {
+            margin-bottom: 4px;
+        }
+
+        label:nth-of-type(2) {
+            margin-top: 12px;
+        }
+
+        input::placeholder {
+            color: gray;
+        }
+
+        button {
+            color: white;
+            margin-top: 20px;
+            background: #f196ce;
+            height: 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 900;
+            box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+            transition: 0.5s;
+        }
+
+        h1 {
+            font-size: 25px;
+            text-align: center;
+            top: 0;
+            left: 0;
+        }
+
+        a {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate a Word Problem</h1>
+        <form action="/ask" method="POST" class="inputs">
+            <label for="subject">Select a Subject:</label>
+            <select name="subject" id="subject">
+                <option value="biology">Biology</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="physics">Physics</option>
+            </select>
+            <br><br>
+            <button type="submit">Ask Problem</button>
+        </form>
+    </div>
+</body>
+</html>

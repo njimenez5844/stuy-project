@@ -3,11 +3,6 @@
   <head>
     <style> 
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
-
-    input {
-      caret-color: red;
-    }
-
     body {
       margin: 0;
       width: 100vw;
@@ -77,12 +72,15 @@
       left: 0;
     }
 
-
+    a {
+      color: black;
+    }
     </style>
   <title>Science Question Predictor!</title>
   </head>
   <body>
     <div class="container">
+      <a style="text-align:left;" href="/ask">Generate Sample Problem</a>
       <h1>Science Question Predictor!</h1>
       <ul>
         {% for message in messages %}
