@@ -7,59 +7,21 @@ from itertools import chain
 import numpy as np
 import scipy.sparse as sp
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer, _make_int_array, _document_frequency
-from sklearn.feature_extraction.text import TfidfVectorizer
+
 logger = logging.getLogger(__name__)
 
 
 class OnlineCountVectorizer(CountVectorizer):
     """Scikit-learn CountVectorizer with online learning
     """
-    def __init__(
-        self,
-        *,
-        input="content",
-        encoding="utf-8",
-        decode_error="strict",
-        strip_accents=None,
-        lowercase=True,
-        preprocessor=None,
-        tokenizer=None,
-        stop_words=None,
-        token_pattern=r"(?u)\b\w\w+\b",
-        ngram_range=(1, 1),
-        analyzer="word",
-        max_df=1.0,
-        min_df=1,
-        max_features=None,
-        vocabulary=None,
-        binary=False,
-        dtype=np.int64,
-    ):
-        super().__init__
-        self.input = input
-        self.encoding = encoding
-        self.decode_error = decode_error
-        self.strip_accents = strip_accents
-        self.preprocessor = preprocessor
-        self.tokenizer = tokenizer
-        self.analyzer = analyzer
-        self.lowercase = lowercase
-        self.token_pattern = token_pattern
-        self.stop_words = stop_words
-        self.max_df = max_df
-        self.min_df = min_df
-        self.max_features = max_features
-        self.ngram_range = ngram_range
-        self.vocabulary = vocabulary
-        self.binary = binary
-        self.dtype = dtype
-
     def partial_refit(self, raw_documents):
         """Update existing vocabulary dictionary with all oov (out of vocabulary) tokens in the raw documents.
+
          Parameters
          ----------
          raw_documents : iterable
              An iterable which yields either str, unicode or file objects.
+
          Returns
          -------
          self: OnlineCountVectorizer
@@ -69,12 +31,15 @@ class OnlineCountVectorizer(CountVectorizer):
 
     def partial_refit_transform(self, raw_documents):
         """Update the exiting vocabulary dictionary and return term-document matrix.
+
         This is equivalent to partial_refit followed by transform, but more efficiently
         implemented.
+
         Parameters
         ----------
         raw_documents : iterable
             An iterable which yields either str, unicode or file objects.
+
         Returns
         -------
         X : array, [n_samples, n_features]
@@ -96,6 +61,7 @@ class OnlineCountVectorizer(CountVectorizer):
 
     def _count_analyzed_vocab(self, analyzed_documents, fixed_vocab):
         """Create sparse feature matrix, and vocabulary where fixed_vocab=False.
+
         For consistency this is a slightly edited version of feature_extraction.text._count_vocab with the document
         analysis factored out.
         """
@@ -141,55 +107,19 @@ class OnlineCountVectorizer(CountVectorizer):
 class OnlineTfidfVectorizer(OnlineCountVectorizer):
     """Scikit-learn TfidfVectorizer with online learning
     """
-    def __init__(
-        self,
-        *,
-        input="content",
-        encoding="utf-8",
-        decode_error="strict",
-        strip_accents=None,
-        lowercase=True,
-        preprocessor=None,
-        tokenizer=None,
-        analyzer="word",
-        stop_words=None,
-        token_pattern=r"(?u)\b\w\w+\b",
-        ngram_range=(1, 1),
-        max_df=1.0,
-        min_df=1,
-        max_features=None,
-        vocabulary=None,
-        binary=False,
-        dtype=np.float64,
-        norm="l2",
-        use_idf=True,
-        smooth_idf=True,
-        sublinear_tf=False,
-    ):
-
-        super().__init__(
-            input=input,
-            encoding=encoding,
-            decode_error=decode_error,
-            strip_accents=strip_accents,
-            lowercase=lowercase,
-            preprocessor=preprocessor,
-            tokenizer=tokenizer,
-            analyzer=analyzer,
-            stop_words=stop_words,
-            token_pattern=token_pattern,
-            ngram_range=ngram_range,
-            max_df=max_df,
-            min_df=min_df,
-            max_features=max_features,
-            vocabulary=vocabulary,
-            binary=binary,
-            dtype=dtype,
-        )
-        self.norm = norm
-        self.use_idf = use_idf
-        self.smooth_idf = smooth_idf
-        self.sublinear_tf = sublinear_tf
+    def __init__(self, input='content', encoding='utf-8', decode_error='strict', strip_accents=None, lowercase=True,
+                 preprocessor=None, tokenizer=None, stop_words=None, token_pattern=r"(?u)\b\w\w+\b", ngram_range=(1, 1),
+                 analyzer='word', max_df=1.0, min_df=1, max_features=None, vocabulary=None, binary=False,
+                 dtype=np.int64, norm='l2', smooth_idf=True, sublinear_tf=False):
+        """All of the regular kwargs accepted by the TfidfVectorizer __init__ and their default values except use_idf
+        which is hard set to True.
+        """
+        super().__init__(input, encoding, decode_error, strip_accents, lowercase, preprocessor, tokenizer, stop_words,
+                         token_pattern, ngram_range, analyzer, max_df, min_df, max_features, vocabulary, binary, dtype)
+        self._tfidf = TfidfTransformer(norm=norm, use_idf=True, smooth_idf=smooth_idf, sublinear_tf=sublinear_tf)
+        self.n_samples = None
+        self.n_features = None
+        self.df = None
 
     def fit(self, raw_documents, y=None):
         """Standard TfidfVectorizer fit method plus storing some meta-data needed for partial_refit methods
@@ -215,12 +145,15 @@ class OnlineTfidfVectorizer(OnlineCountVectorizer):
 
     def partial_refit(self, raw_documents):
         """Update the exiting vocabulary dictionary and idf
+
         This is equivalent to partial_refit followed by transform, but more efficiently
         implemented.
+
         Parameters
         ----------
         raw_documents : iterable
             An iterable which yields either str, unicode or file objects.
+
         Returns
         -------
         self: OnlineTfidfVectorizer
@@ -230,12 +163,15 @@ class OnlineTfidfVectorizer(OnlineCountVectorizer):
 
     def partial_refit_transform(self, raw_documents):
         """Update the exiting vocabulary dictionary and idf and return term-document matrix.
+
         This is equivalent to partial_refit followed by transform, but more efficiently
         implemented.
+
         Parameters
         ----------
         raw_documents : iterable
             An iterable which yields either str, unicode or file objects.
+
         Returns
         -------
         X : array, [n_samples, n_features]
