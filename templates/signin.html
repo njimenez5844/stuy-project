@@ -2,88 +2,113 @@
 <html>
 <head>
     <title>Sign In</title>
+    <!-- icon sprite-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
 
         input {
-        caret-color: red;
+            caret-color: red;
         }
 
         body {
-        margin: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #ecf0f3;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        justify-content: center;
-        place-items: center;
-        font-family: poppins;
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ecf0f3;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            place-items: center;
+            font-family: poppins;
         }
 
         .container {
-        position: relative;
-        width: 500px;
-        /* height: 500px; */
-        border-radius: 20px;
-        padding: 40px;
-        box-sizing: border-box;
-        background: #ecf0f3;
-        box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+            position: relative;
+            width: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            background: #ecf0f3;
+            box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
         }
-        
+
         h1 {
-        margin-bottom: 20px;
+            margin-bottom: 20px;
         }
 
         form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        input[type="text"], input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
+        .input-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
-        input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        background-color: #4caf50;
-        border: none;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
 
         .create-account {
-        margin-top: 10px;
+            margin-top: 10px;
         }
 
         .create-account a {
-        color: blue;
-        text-decoration: underline;
+            color: blue;
+            text-decoration: underline;
         }
     </style>
+    <script>
+        function showPW() {
+            var pwIn = document.getElementById("passwordInput");
+            var toggle = document.getElementById("toggleIcon");
+            
+            if (pwIn.type === "password") {
+                pwIn.type = "text";
+                toggle.classList.remove("fa-eye-slash");
+                toggle.classList.add("fa-eye");
+            } else {
+                pwIn.type = "password";
+                toggle.classList.remove("fa-eye");
+                toggle.classList.add("fa-eye-slash");
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Sign In</h1>
         <form action="/signin" method="POST">
             {% if error %}
-            <p style="color: red;">Invalid username or password. Please try again.</p>
+            <p style="color: red">Invalid username or password. Please try again.</p>
             {% endif %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <div class="input-container">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-container">
+                <input type="password" id="passwordInput" name="password" placeholder="Password" required>
+                <i id="toggleIcon" class="toggle-password fas fa-eye-slash" onclick="showPW()"></i>
+            </div>
             <input type="submit" value="Sign In">
         </form>
         <p class="create-account">Don't have an account? <a href="/create">Create one</a></p>
-        <a style="text-align:right;" href="https://github.com/njimenez5844/stuy-project"> About this Project</a>
+        <a style="text-align:right;" href="https://github.com/njimenez5844/stuy-project">About this Project</a>
     </div>
 </body>
 </html>
